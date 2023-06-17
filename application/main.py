@@ -207,8 +207,10 @@ def index(user_data, pr_title=None, commit_id=None):
 # @todo still requires sandbox parameters
 @application.route('/api/login', methods=['GET'])
 def login():
+    OPENID_PROFILE = "openid profile"
+    BUILDING_SMART_URL = "https://buildingSMARTservices.onmicrosoft.com/api/read"
     bs = OAuth2Session(client_id, redirect_uri=redirect_uri, scope=[
-                       "openid profile", "https://buildingSMARTservices.onmicrosoft.com/api/read"])
+                       OPENID_PROFILE, BUILDING_SMART_URL])
     authorization_url, state = bs.authorization_url(authorization_base_url)
     session['oauth_state'] = state
     return jsonify({"redirect":authorization_url})
